@@ -6,8 +6,120 @@
         margin-left: 34px;
         z-index: 2;
         width: 381px;
-}    
+}
+
+
+
+
+
+
+.overlay {
+    height: 100%;
+    width: 100%;
+    display: none;
+    position: fixed;
+    z-index: 9;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+}
+
+.overlay-content {
+    position: relative;
+    top: 20%;
+    width: 80%;
+
+    margin-top: 30px;
+    margin: auto;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+    cursor: pointer;
+    color: white;
+}
+
+.overlay .closebtn:hover {
+    color: #ccc;
+}
+
+.overlay input[type=text] {
+    padding: 15px;
+    font-size: 17px;
+    border: none;
+    float: left;
+    width: 80%;
+    background: white;
+}
+
+.overlay input[type=text]:hover {
+    background: #f1f1f1;
+}
+
+.overlay button {
+    float: left;
+    width: 20%;
+    padding: 15px;
+    background: #ddd;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.overlay button:hover {
+    background: #bbb;
+}
+
+
 </style>
+
+
+<div id="myOverlay" class="overlay">
+    <span class="closebtn" onclick="closeSearch()" title="Close Overlay">×</span>
+    <div class="overlay-content">
+        <div class="s002">
+            <form action="" method="post">
+            <h3 style="color: #ffffff; "> Search Jobs</h3>
+                <div class="inner-form">
+                    <div class="input-field first-wrap">
+
+                        <input id="search" type="text" name="job_title" placeholder="Skills, Designations, Companies" />
+                    </div>
+                    <div class="input-field second-wrap">
+
+                        <input class="datepicker" id="location" name="location" type="text" placeholder="Location/Locality" />
+                    </div>
+                    <div class="input-field third-wrap">
+
+                        <input class="experience" id="return" type="text" placeholder="Experience" />
+
+                    </div>
+                    <div class="input-field third-wrap">
+
+
+                        <input class="salary" id="return" type="text" placeholder="Salary" />
+                    </div>
+                    <div class="input-field fifth-wrap">
+                        <button class="btn-search" type="submit">SEARCH</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+    function openSearch() {
+        document.getElementById("myOverlay").style.display = "block";
+    }
+
+    function closeSearch() {
+        document.getElementById("myOverlay").style.display = "none";
+    }
+</script>
 <!-- slider start here -->
 <div class="slideshow owl-carousel">
     <div class="item">
@@ -18,8 +130,9 @@
                     <div class="slider-caption">
 
                         <div class="col-md-6 col-sm-6 col-xs-12 paddright pad-am">
+
                             <form class="am-form">
-                                <div class="input-group">
+                                <div class="openBtn input-group" onclick="openSearch()">
                                     <input name="search_job" id="search_job" class="form-control" value="" autocomplete="off" placeholder="Job Search" type="text">
                                     <span>
 									<button type="submit" class="btnsrch" onclick="location.href='jobs.html'"><i class="fa fa-search"></i> </button>
