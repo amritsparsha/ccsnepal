@@ -1,0 +1,249 @@
+img.activity_front {
+    width: 143px;
+    height: 119px;
+}
+section.product-listing.search-list {
+    padding-top: 97px;
+}
+section.blank {
+   padding: 86px 0 0 0;
+}
+#inner-page-search {
+    background: rgba(0, 0, 0, 0) url("../images/backgrounds/booking-bg.jpg") repeat fixed 0 0 / cover;
+}
+
+.blue-bg {
+    background: rgba(10, 49, 82, 0.8) none repeat scroll 0 0;
+    color: #fff;
+    padding: 31px 0 60px;
+}
+
+.section-title h2 {
+    font-weight: 800;
+    letter-spacing: 2px;
+    color:#fff;
+
+}
+
+.book_con {
+    background: #e9e9e9 none repeat scroll 0 0;
+    border: 1px solid #c7c7c7;
+    padding: 16px;
+    margin-bottom: 40px;
+}
+.book_con .form-group {
+    padding: 5px 0;
+}
+.book_con .form-control {
+    border-left: 5px solid #f9676b;
+    border-radius: 0;
+    height:44px;
+
+}
+.book_con label
+{
+    color: #3d3d3d;
+}
+.subscribe {
+    background: #f9676b none repeat scroll 0 0;
+    border: medium none;
+    margin-top: 6px;
+    color: #ffffff;
+    padding: 9px 0;
+    width: 100%;
+}
+.red {
+    color: red;
+}
+
+img.special_pkg_img {
+    width: 100% !important;
+    height: 200px !important;
+}
+
+.travelers-blog img {
+    width: 360px;
+    height: 281px;
+}
+
+.testimonials-blog img
+{
+    width: 360px;
+    height: 180px;
+}
+
+
+.blog_posttype.blog_slider {
+    background: #000000 none repeat scroll 0 0;
+    color: #ffffff;
+    float: left;
+    margin: 0 5px 0 0;
+    overflow: hidden;
+    padding: 9px 11px 8px;
+}
+.blog_info_block {
+    background: #e7e7e7 none repeat scroll 0 0;
+    border-left: 6px solid #f9676b;
+    color: #3d3d3d;
+    font-size: 13px;
+    letter-spacing: 0;
+    margin: 0;
+    overflow: hidden;
+    padding: 10px 0 10px 10px;
+}
+
+.login-register a {
+    margin-bottom: 0px !important;
+    margin-top: 0px !important;
+}
+
+.login-box {
+    overflow: hidden;
+}
+.col-md-12.login-container {
+    background: #eeeeee none repeat scroll 0 0;
+    padding: 60px 0 0;    min-height: 663px;  margin-bottom: 10px;
+    
+}
+.login-form-box {
+    background: #ffffff none repeat scroll 0 0;
+    box-shadow: 0 0 2px 1px #bebebe;
+    padding: 0 0 0;
+}
+.login-nav {
+    border: 0 none;
+    margin-bottom: 8px;
+}
+.tab-content.login-tab-wrapper {
+    padding: 20px 30px 30px;
+}
+.yt-list > li {
+    font-size: 16px;
+    border-bottom: 1px solid #dfdfdf;
+    padding: 15px 0;
+}
+.login-main {
+    border-left: 1px solid #cccccc;
+    color: #656565;
+}
+.login-heading {
+    background: #F57327;
+    margin: 0px !important;
+    padding: 13px 0 12px 0;
+    color: #fff;
+}
+
+.form-control.btn.btn-login {
+    background: #00A4F9 none repeat scroll 0 0;
+    border-radius: 0;
+    height: 40px;
+    color: #ffffff;
+    padding: 0;
+}
+
+.login-box .form-control
+{
+    height: 43px;
+}
+
+ul.footer-links li.active a {
+    color: #f9676b !important;
+}
+
+.btn-cancel {
+    border-radius: 0;
+    height: 40px;
+    color: #ffffff;
+    padding: 9px 25px 0 25px;
+}
+
+.captcha-word {
+    border-style: solid;
+    border-width: 2px;
+    font-size: 18px;
+    margin-right: 20px;
+    margin-top: 10px;
+    padding: 5px 10px 11px;
+}
+
+.payment_option {
+    margin-left: 185px;
+}
+
+
+#outer
+{
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color:#000000;
+    z-index:1001;
+    -moz-opacity: 0.7;
+    opacity:.7;
+    filter: alpha(opacity=70);
+    padding:10px;
+}
+#inner
+{
+    display: none;
+    position: fixed;
+    top: 100px;
+    left: 300px;
+    
+    padding: 5px;
+    border: 10px solid #FF8000;
+    background-color: white;
+    z-index:1002;
+    overflow: auto;
+}
+#content
+{
+    font-size:24px;
+    color:#CCCCCC;
+}
+#close
+{
+    float:right;
+    width:20px;
+    height:20px;
+    top:0;
+    cursor:pointer;
+    text-align:center;
+    vertical-align:middle;
+    font-weight:bold;
+}
+
+#map{
+    height: 430px;
+   /* width: 75%;*/
+}
+
+a.forgot-password {
+    cursor: pointer;
+}
+
+#form-1 .help-block{
+    color: #FFFF3B;
+}
+#form-2 .help-block{
+    color: #FFFF3B;
+}
+.full-width{
+    width: 100% !important;
+}
+.paypal_mode{
+    margin: 11%;
+    width: 88%;
+    height: 45%;
+}
+.package-details b, strong {
+    font-weight: bold;
+}
+.multi-lang > span {
+    display: inline-block;
+    float: left;
+    margin: 10px 10px 0 0;
+}
