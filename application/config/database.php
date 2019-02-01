@@ -53,9 +53,9 @@ $db['default']['hostname'] = 'localhost';
 //$db['default']['password'] = '';
 //$db['default']['database'] = 'gulf';
 
-$db['default']['username'] = 'ccsnea2i_newamu';
-$db['default']['password'] = 'Amrit@321';
-$db['default']['database'] = 'ccsnea2i_newf';
+$db['default']['username'] = 'root';
+$db['default']['password'] = '';
+$db['default']['database'] = 'ccsfinal';
 
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';

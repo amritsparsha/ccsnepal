@@ -17,7 +17,7 @@
 |
 */
 
-$config['base_url'] = 'http://www.ccsnepal.com/';
+$config['base_url'] = 'http://localhost/ccsfinal/';
 
 
 /*
