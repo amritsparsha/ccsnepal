@@ -184,7 +184,7 @@
                                                                         <td><?php echo $row['employer_contact'];?></td>
 
                                                                     </tr>
-                                                                      <tr>
+                                                                     <tr>
                                                                         <th scope="row">Ownership Type</th>
                                                                         <td><?php echo (!empty($row['como_id']))?$this->crud->get_detail($row['como_id'],"como_id","tbl_company_ownership")['company_ownership']:"";?></td>
 

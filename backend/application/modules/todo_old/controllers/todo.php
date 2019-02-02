@@ -29,7 +29,7 @@ class Todo extends MX_Controller
     public function todo_all()
     {
         $table         = 'igc_todo';
-//        $data['todo'] = $this->crud->get_all_todo($table);
+        $data['todo'] = $this->crud->get_all($table);
         $data['title'] = "All Todo List";
         $this->load->view('header', $data);
         $this->load->view('todo_all');
@@ -40,7 +40,6 @@ class Todo extends MX_Controller
 
     public function form($id = 0)
     {
-        $this -> load -> library('form_validation');
         if ($this->input->post()) {
             $todo_id             = $this->input->post('todo_id');
             $insert['title']      = $this->input->post('title');
@@ -49,22 +48,16 @@ class Todo extends MX_Controller
             $insert['assign_date'] = $this->input->post('assign_date');
             $insert['end_date']    = $this->input->post('end_date');
             $insert['todo_type']   = $this->input->post('todo_type');
+
             $insert['assign_to']   = $this->input->post('assign_to');
             $insert['publish_status']   = $this->input->post('publish_status');
             $user_id= $this->session->userdata('admin_id');
-            $insert['assign_by']   = $user_id;
-            $insert['todo_status'] = $this->input->post('todo_status');
-            $insert['todo_detail'] = $this->input->post('todo_detail');
-            $insert['detail_st'] = $this->input->post('detail_st');
-            $insert['todo_detail1'] = $this->input->post('todo_detail1');
-            $insert['detail_st1'] = $this->input->post('detail_st1');
-            $insert['todo_detail2'] = $this->input->post('todo_detail2');
-            $insert['detail_st2'] = $this->input->post('detail_st2');
-            $insert['todo_detail3'] = $this->input->post('todo_detail3');
-            $insert['detail_st3'] = $this->input->post('detail_st3');
-            $insert['todo_detail4'] = $this->input->post('todo_detail4');
-            $insert['detail_st4'] = $this->input->post('detail_st4');
 
+            $insert['assign_by']   = $user_id;
+
+            $insert['todo_status'] = $this->input->post('todo_status');
+
+            $insert['todo_detail'] = $this->input->post('todo_detail');
             $folder_path            = '../uploads/todos/';
             $rand                   = md5(rand());
             $featuredimg            = $rand . str_replace(" ", "", $_FILES['featured_img']['name']);

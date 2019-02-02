@@ -62,7 +62,7 @@
                                 <tr>
                                     <th>S.N</th>
                                     <th>Title</th>
-                                    <th>Status</th>
+                                    <th>Date</th>
                                     <!-- <th>end_date</th> -->
                                     <th>Priority</th>
                                     <!-- <th>End date</th> -->
@@ -73,14 +73,8 @@
                                 </thead>
                                 <tbody>
                                 <?php
-
-                                $mytodo = $this->db->query("SELECT * FROM igc_todo WHERE delete_status = '0' ORDER BY todo_id DESC ");
-                                $mytodos = $mytodo->result_array();
-
-                                ?>
-                                <?php
                                 $i = 1;
-                                foreach($mytodos as $row)
+                                foreach($todo as $row)
                                 {
                                     ?>
                                     <tr>
@@ -88,32 +82,9 @@
                                         <td><?php echo $row['title'];?></td>
 
                                         <td>
-                                            <?php
-                                            if($row['todo_status'] == '0'){
-                                                ?>
+                                            <b> Assign Date: </b> <br><?php echo $row['assign_date'];?> <br>
 
-                                                <button type="button" class="btn waves-effect waves-light btn-xs btn-danger">Pending</button>
-
-                                                <?php
-                                            }  elseif ($row['todo_status'] == '1'){
-                                                ?>
-
-                                                <button type="button" class="btn waves-effect waves-light btn-xs btn-info">Medium</button>
-
-                                                <?php
-                                            }elseif ($row['todo_status'] == '2'){
-                                                ?>
-
-                                                <button type="button" class="btn waves-effect waves-light btn-xs btn-success">Completed</button>
-
-                                                <?php
-                                            }else{
-
-                                            }
-
-                                            ?>
-
-                                        </td>
+                                            <b> End Date: </b><br><?php echo $row['end_date']?></td>
                                         <td><?php
 
 
@@ -207,183 +178,22 @@
                                                             <table class="table table-bordered">
 
                                                                 <tbody>
-
                                                                 <tr>
-                                                                    <th scope="row">Todo One</th>
-                                                                    <td><?php echo $row['todo_detail'];?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if($row['detail_st'] == '0'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-danger">Urgent</button>
-
-                                                                            <?php
-                                                                        }  elseif ($row['detail_st'] == '1'){
-                                                                            ?>
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-info">Medium</button>
-
-                                                                            <?php
-                                                                        }elseif ($row['detail_st'] == '2'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-success">Normal</button>
-                                                                            <?php
-                                                                        }else{
-
-                                                                        }
-
-                                                                        ?>
-
-                                                                    </td>
+                                                                    <th scope="row">Title</th>
+                                                                    <td><?php echo $row['title'];?></td>
 
                                                                 </tr>
-
-
-                                                                <tr>
-                                                                    <th scope="row">Todo Two</th>
-                                                                    <td><?php echo $row['todo_detail1'];?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if($row['detail_st1'] == '0'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-danger">Urgent</button>
-
-                                                                            <?php
-                                                                        }  elseif ($row['detail_st1'] == '1'){
-                                                                            ?>
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-info">Medium</button>
-
-                                                                            <?php
-                                                                        }elseif ($row['detail_st1'] == '2'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-success">Normal</button>
-                                                                            <?php
-                                                                        }else{
-
-                                                                        }
-
-                                                                        ?>
-
-                                                                    </td>
-
-                                                                </tr>
-
-
-                                                                <tr>
-                                                                    <th scope="row">Todo Three</th>
-                                                                    <td><?php echo $row['todo_detail2'];?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if($row['detail_st2'] == '0'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-danger">Urgent</button>
-
-                                                                            <?php
-                                                                        }  elseif ($row['detail_st2'] == '1'){
-                                                                            ?>
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-info">Medium</button>
-
-                                                                            <?php
-                                                                        }elseif ($row['detail_st2'] == '2'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-success">Normal</button>
-                                                                            <?php
-                                                                        }else{
-
-                                                                        }
-
-                                                                        ?>
-
-                                                                    </td>
-
-                                                                </tr>
-
-
-                                                                <tr>
-                                                                    <th scope="row">Todo Four</th>
-                                                                    <td><?php echo $row['todo_detail3'];?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if($row['detail_st3'] == '0'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-danger">Urgent</button>
-
-                                                                            <?php
-                                                                        }  elseif ($row['detail_st3'] == '1'){
-                                                                            ?>
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-info">Medium</button>
-
-                                                                            <?php
-                                                                        }elseif ($row['detail_st3'] == '2'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-success">Normal</button>
-                                                                            <?php
-                                                                        }else{
-
-                                                                        }
-
-                                                                        ?>
-
-                                                                    </td>
-
-                                                                </tr>
-
-
-                                                                <tr>
-                                                                    <th scope="row">Todo Five</th>
-                                                                    <td><?php echo $row['todo_detail4'];?></td>
-                                                                    <td>
-                                                                        <?php
-                                                                        if($row['detail_st4'] == '0'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-danger">Urgent</button>
-
-                                                                            <?php
-                                                                        }  elseif ($row['detail_st4'] == '1'){
-                                                                            ?>
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-info">Medium</button>
-
-                                                                            <?php
-                                                                        }elseif ($row['detail_st4'] == '2'){
-                                                                            ?>
-
-                                                                            <button type="button" class="btn waves-effect waves-light btn-xs btn-success">Normal</button>
-                                                                            <?php
-                                                                        }else{
-
-                                                                        }
-
-                                                                        ?>
-
-                                                                    </td>
-
-                                                                </tr>
-
-
                                                                 <tr>
                                                                     <th scope="row">Date</th>
                                                                     <td>
-                                                                        <b> Start Date: </b> <br><?php echo $row['assign_date'];?>
+                                                                        <b> Assign Date: </b> <br><?php echo $row['assign_date'];?> <br>
 
-                                                                    </td>
-                                                                    <td><b> End Date: </b><br><?php echo $row['end_date']?></td>
+                                                                        <b> End Date: </b><br><?php echo $row['end_date']?></td>
 
                                                                 </tr>
-
-
-
                                                                 <tr>
                                                                     <th scope="row">Priority</th>
-                                                                    <td>
-                                                                        <?php
+                                                                    <td><?php
 
 
 
@@ -411,8 +221,7 @@
 
                                                                         }
 
-                                                                        ?>
-                                                                    </td>
+                                                                        ?></td>
 
                                                                 </tr>
 
@@ -462,7 +271,11 @@
                                                                     <td><img src="../uploads/todos/<?php echo $row['featured_img'];?>" width="40%" /> </td>
 
                                                                 </tr> -->
+                                                                <tr>
+                                                                    <th scope="row">Details</th>
+                                                                    <td><?php echo $row['todo_detail'];?></td>
 
+                                                                </tr>
                                                                 </tbody>
                                                             </table>
                                                         </div>

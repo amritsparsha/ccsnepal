@@ -9,7 +9,6 @@ class Content_model extends CI_Model{
         $result = $this->db->get('igc_content')->result_array();
         return $result;
     }
-
     public function content_insert($insert)
     {
         $this->db->insert('igc_content', $insert);
@@ -21,17 +20,16 @@ class Content_model extends CI_Model{
         else{
             return false;
         }
+    }
+    //function to get content_detail
+    public function get_content_detail($content_id)
+    {
+        $this->db->where('delete_status', '0');
+        $this->db->where('content_id', $content_id);
+        $result = $this->db->get('igc_content')->row_array();
+        return $result;
 
     }
-      public function check_name_exist($content_url, $content_id)
-   {
-
-       $this->db->where('content_url', $content_url)->where('content_id !=', $content_id)->where('delete_status','0');
-       $row = $this->db->get('igc_content')->row_array();
-
-       return $row;
-   }
-
     public function content_update($update, $content_id)
     {
         $this->db->where('content_id', $content_id);
@@ -45,8 +43,15 @@ class Content_model extends CI_Model{
         }
 
     }
+    public function check_name_exist($content_url, $content_id)
+    {
 
+       $this->db->where('content_url', $content_url)->where('content_id !=', $content_id)->where('delete_status','0');
+       $row = $this->db->get('igc_content')->row_array();
 
+       return $row;
+    }
+    // for tabs
     public function tab_insert($inserts)
     {
         $result =  $this->db->insert('igc_content_tabs', $inserts);
@@ -57,11 +62,8 @@ class Content_model extends CI_Model{
         else{
             return false;
         }
-
     }
-
     //function update tab
-
     public function tab_update($inserts, $content_id)
     {
         $this->db->where('content_id', $content_id);
@@ -73,22 +75,16 @@ class Content_model extends CI_Model{
         else{
             return false;
         }
-
     }
-
-    //function to get content_detail
-
-    public function get_content_detail($content_id)
+    //function to check tab data
+    public function tab_detail($content_id)
     {
-        $this->db->where('delete_status', '0');
         $this->db->where('content_id', $content_id);
-        $result = $this->db->get('igc_content')->row_array();
+        $result = $this->db->get('igc_content_tabs')->row_array();
         return $result;
-
     }
-
+    
     //function get parent_page
-
     public function get_parent_page()
     {
         $this->db->select('content_id');
@@ -100,23 +96,15 @@ class Content_model extends CI_Model{
 
     //function get content categories
 
-    public function get_content_categories()
-    {
-        $this->db->select('category_id');
-        $this->db->select('category_name');
-        $result = $this->db->get('igc_content_category')->result_array();
-        return $result;
-    }
+    // public function get_content_categories()
+    // {
+    //     $this->db->select('category_id');
+    //     $this->db->select('category_name');
+    //     $result = $this->db->get('igc_content_category')->result_array();
+    //     return $result;
+    // }
 
 
-    //function to check tab data
-
-    public function tab_detail($content_id)
-    {
-        $this->db->where('content_id', $content_id);
-        $result = $this->db->get('igc_content_tabs')->row_array();
-        return $result;
-    }
 
     //function to insert new category
 

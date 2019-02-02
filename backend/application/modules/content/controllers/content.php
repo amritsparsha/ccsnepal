@@ -18,7 +18,6 @@ class Content extends MX_Controller{
     public function index()
     {
         $data['records'] = $this->content->get_content_list();
-
         $data['title']= "Content List";
         $this->load->view('header', $data);
         $this->load->view('content_list');
@@ -30,244 +29,172 @@ class Content extends MX_Controller{
         $this->load->helper('html');
         $this->load->helper('form');
         $this->load->library('form_validation');
+
         if($this->input->post())
         {
-
-             $this->form_validation->set_rules('content_title', 'content_title','required' );
+            $this->form_validation->set_rules('content_title', 'content_title','required');
             $this->form_validation->set_rules('content_page_title', 'content_page_title', 'required|callback_check_name_exist['.$this->input->post('content_id').']');
+
+            $this->form_validation->set_rules('content_ext_url', 'content_ext_url');
             $this->form_validation->set_rules('content_body', 'content_body');
             $this->form_validation->set_rules('content_type', 'content_type');
-            $this->form_validation->set_rules('meta_description', 'meta_description');
-            $this->form_validation->set_rules('meta_keywords', 'meta_keywords');
-            $this->form_validation->set_rules('meta_title', 'meta_title');
             $this->form_validation->set_rules('publish_status', 'publish_status');
             $this->form_validation->set_rules('show_on_menu', 'show_on_menu');
+
+            $this->form_validation->set_rules('meta_title', 'meta_title');
+            $this->form_validation->set_rules('meta_keywords', 'meta_keywords');
+            $this->form_validation->set_rules('meta_description', 'meta_description');
+
             $this->form_validation->set_rules('tab1', 'tab1');
-            $this->form_validation->set_rules('description1', 'description1');
+            $this->form_validation->set_rules('tab_description1', 'tab_description1');
             $this->form_validation->set_rules('tab2', 'tab2');
-            $this->form_validation->set_rules('description2', 'description2');
+            $this->form_validation->set_rules('tab_description2', 'tab_description2');
             $this->form_validation->set_rules('tab3', 'tab3');
-            $this->form_validation->set_rules('description3', 'description');
-            $this->form_validation->set_rules('tab4', 'tab');
-            $this->form_validation->set_rules('description4', 'description4');
+            $this->form_validation->set_rules('tab_description3', 'tab_description3');
+            $this->form_validation->set_rules('tab4', 'tab4');
+            $this->form_validation->set_rules('tab_tab_description4', 'tab_description4');
             $this->form_validation->set_rules('tab5', 'tab5');
-            $this->form_validation->set_rules('description5', 'description5');
+            $this->form_validation->set_rules('tab_description5', 'tab_description5');
 
-            if ($this->form_validation->run()) {
-            $new_tags = $this->input->post('content_tags');
-            $folder_path = '../uploads/content/';
-            $content_id = $this->input->post('content_id');
-            $insert['content_title'] = $this->input->post('content_title') ;
-            $insert['content_page_title'] = $this->input->post('content_page_title');
-            $insert['content_body'] = $this->input->post('content_body');
-            $insert['meta_description'] = $this->input->post('meta_description');
-            $insert['meta_keywords'] = $this->input->post('meta_keywords');
-            $insert['meta_title'] = $this->input->post('meta_title');
-
-            $insert['content_type'] = $this->input->post('content_type');
-            // echo $insert['content_type'];
-            // exit;
-            $insert['publish_status'] = $this->input->post('publish_status');
-            $insert['show_on_menu'] = $this->input->post('show_on_menu');
-            $insert['delete_status'] = "0";
-            $insert['content_url'] = strtolower(str_replace(" ","-",$insert['content_page_title']));
-
-            $code = strtoupper(substr(md5(uniqid(rand(1234,9876).time().rand(1111,9999), true)), 3,7));
-            $check_code = $this->crud->get_detail($code,"content_ref_no","igc_content");
-            while(count($check_code) > 0)
+            if ($this->form_validation->run()) 
             {
+                $folder_path = '../uploads/content/';
+                $content_id = $this->input->post('content_id');
+
+                $insert['content_title'] = $this->input->post('content_title') ;
+                $insert['content_page_title'] = $this->input->post('content_page_title');
+                $insert['content_ext_url'] = $this->input->post('content_ext_url');
+                $insert['content_type'] = $this->input->post('content_type');
+                $insert['content_body'] = $this->input->post('content_body');
+                $insert['show_on_menu'] = $this->input->post('show_on_menu');
+                $insert['publish_status'] = $this->input->post('publish_status');
+                $insert['delete_status'] = "0";
+
+                $insert['meta_title'] = $this->input->post('meta_title');
+                $insert['meta_keywords'] = $this->input->post('meta_keywords');
+                $insert['meta_description'] = $this->input->post('meta_description');
+
+                $insert['content_url'] = strtolower(str_replace(" ","-",$insert['content_page_title']));
+
+
+                //code to generate content URL and check if it is present
+                $check_url = $this->crud->get_detail_except_id($content_id,"content_id",$insert['content_url'],"content_url","igc_content");
+                while(count($check_url) > 0)
+                {
+                    $insert['content_url'] = strtolower(str_replace(" ","-",$insert['content_page_title']));
+                    $check_url = $this->crud->get_detail_except_id($content_id,"content_id",$insert['content_url'],"content_url","igc_content");
+                }
+
+                //code to generate reference number and check if it is present
                 $code = strtoupper(substr(md5(uniqid(rand(1234,9876).time().rand(1111,9999), true)), 3,7));
-                $check_code = $this->crud->get_detail($code,"content_ref_no","igc_content");
-            }
-
-            $insert['content_ref_no']=$code;
-           // $insert['parent_id'] = $this->input->post('parent_id');
-            $rand = md5(rand());
-            $featuredimg= $rand. str_replace(" ","",$_FILES['featured_img']['name']);
-            $featuredimgtmp=$_FILES['featured_img']['tmp_name'];
-
-
-
-            //code to check url
-
-            // $check_url =  $this->crud->check_url($content_id, 'content_id', $url, 'content_url','igc_content');
-            // if(!empty($check_url))
-            // {
-            //     $insert['content_url']= $url."-".rand(1, 50);
-            // }
-            // else
-            // {
-            //     $insert['content_url'] = $url;
-            // }
-
-
-            if($content_id =="")
-            {
-                $insert['parent_id']= "0";
-                $insert['position']= "0";
-                $insert['group_id']= "1";
-                $insert['created'] = date('Y-m-d:H:i:s');
-                if($_FILES['featured_img']['name'] !="")
+                $check_code = $this->crud->get_detail_except_id($content_id,"content_id",$code,"content_ref_no","igc_content");
+                while(count($check_code) > 0)
                 {
-                    $insert['featured_img']= $featuredimg;
+                    $code = strtoupper(substr(md5(uniqid(rand(1234,9876).time().rand(1111,9999), true)), 3,7));
+                    $check_code = $this->crud->get_detail_except_id($content_id,"content_id",$code,"content_ref_no","igc_content");
+                }
+                $insert['content_ref_no']=$code;
 
+                // content-type
+                $content_type=$insert['content_type'];
+                $tabs_content_type=array(
+                                            'Page',
+                                            'Article',
+                                            'About',
+                                            'Contact'
+                                        );
+
+
+                $rand = md5(rand());
+                $featuredimg= $rand. str_replace(" ","",$_FILES['featured_img']['name']);
+                $featuredimgtmp=$_FILES['featured_img']['tmp_name'];
+
+                if($content_id =="")
+                {
+                    $insert['parent_id']= "0";
+                    $insert['position']= "0";
+                    $insert['group_id']= "1";
+                    $insert['created'] = date('Y-m-d:H:i:s');
+
+                    if($_FILES['featured_img']['name'] !="")
+                    {
+                        $insert['featured_img']= $featuredimg;
                         move_uploaded_file($featuredimgtmp,$folder_path.$featuredimg);
+                    }
+                    
+                    $inserted_id = $this->content->content_insert($insert); //insert into content
 
-                }
-
-            if($insert['content_type'] == "Page")
-            {
-                $insert['parent_id'] = $this->input->post('parent_id');
-                $result = $this->content->content_insert($insert);
-                //code to add tags
-                $this->add_tags($result, $new_tags);
-                $inserts['tab1'] = $this->input->post('tab1');
-                $inserts['description1'] = $this->input->post('description1');
-                $inserts['tab2'] = $this->input->post('tab2');
-                $inserts['description2'] = $this->input->post('description2');
-                $inserts['tab3'] = $this->input->post('tab3');
-                $inserts['description3'] = $this->input->post('description3');
-                $inserts['tab4'] = $this->input->post('tab4');
-                $inserts['description4'] = $this->input->post('description4');
-                $inserts['tab5'] = $this->input->post('tab5');
-                $inserts['description5'] = $this->input->post('description5');
-
-                $inserts['content_id']= $result;
-
-
-                $this->content->tab_insert($inserts);
-
-                if($result)
-                {
-                    //code to create log
-                    $log['module_title']= $insert['content_page_title'];
-                    $log['action_id']= "1";
-                    $this->create_log($log);
-
-                    $this->session->set_flashdata('success','New Content has been inserted.');
-                    redirect('content');
-                }
-                else{
-                    $this->session->set_flashdata('error','Unable to insert the new content.');
-                    redirect('content');
-                }
-            }
-            else{
-
-                $category = $this->input->post('category_id');
-
-                //code to check if category exist or not
-                if($category == "")
-                {
-                    $cat['category_name'] = "Uncatgeorized";
-                    $results = $this->content->insert_content_category($cat);
-                    $insert['category_id'] = $results;
-
-                }
-                else{
-                    $insert['category_id'] = $category;
-                }
-
-
-                $result = $this->content->content_insert($insert);
-                if($result)
-                {
-                    //code to create log
-                    $log['module_title']= $insert['content_page_title'];
-                    $log['action_id']= "1";
-                    $this->create_log($log);
-                    //code to add tags
-                    $this->add_tags($result, $new_tags);
-
-                    $this->session->set_flashdata('success','New Content has been inserted.');
-                    redirect('content');
-                }
-                else{
-                    $this->session->set_flashdata('error','Unable to insert the new content.');
-                    redirect('content');
-                }
-
-            }
-           }
-            else{
-
-                $insert['updated'] = date('Y-m-d:H:i:s');
-                if($_FILES['featured_img']['name'] !="")
-                {
-                    $pre_featured_img = $this->input->post('pre_featuredimg');
-
-                    @unlink($folder_path.$pre_featured_img);
-
-                    $insert['featured_img']= $featuredimg;
-
-                    move_uploaded_file($featuredimgtmp,$folder_path.$featuredimg);
-
-                }
-
-                if($insert['content_type'] == "Page")
-                {
-
-//                    print_r($insert);
-//                    exit;
-                    $result = $this->content->content_update($insert, $content_id);
-                    //code to add tags
-                    $this->add_tags($content_id, $new_tags);
-                    $inserts['tab1'] = $this->input->post('tab1');
-                    $inserts['description1'] = $this->input->post('description1');
-                    $inserts['tab2'] = $this->input->post('tab2');
-                    $inserts['description2'] = $this->input->post('description2');
-                    $inserts['tab3'] = $this->input->post('tab3');
-                    $inserts['description3'] = $this->input->post('description3');
-                    $inserts['tab4'] = $this->input->post('tab4');
-                    $inserts['description4'] = $this->input->post('description4');
-                    $inserts['tab5'] = $this->input->post('tab5');
-                    $inserts['description5'] = $this->input->post('description5');
-
-                    $tab_data = $this->content->tab_detail($content_id);
-
-                    if(!empty($tab_data))
+                    if(in_array($content_type,$tabs_content_type))
                     {
-                        $this->content->tab_update($inserts, $content_id);
+                        $tabs['tab1'] = $this->input->post('tab1');
+                        $tabs['tab_description1'] = $this->input->post('tab_description1');
+                        $tabs['tab2'] = $this->input->post('tab2');
+                        $tabs['tab_description2'] = $this->input->post('tab_description2');
+                        $tabs['tab3'] = $this->input->post('tab3');
+                        $tabs['tab_description3'] = $this->input->post('tab_description3');
+                        $tabs['tab4'] = $this->input->post('tab4');
+                        $tabs['tab_description4'] = $this->input->post('tab_description4');
+                        $tabs['tab5'] = $this->input->post('tab5');
+                        $tabs['tab_description5'] = $this->input->post('tab_description5');
+
+                        $tabs['content_id']= $inserted_id;
+
+                        $this->content->tab_insert($tabs); // insert tabs
                     }
-                    else{
-                        $inserts['content_id'] = $content_id;
-                        $this->content->tab_insert($inserts);
-                    }
 
-
-
-                    if($result)
+                    if($inserted_id)
                     {
                         //code to create log
                         $log['module_title']= $insert['content_page_title'];
-                        $log['action_id']= "2";
+                        $log['action_id']= "1";
                         $this->create_log($log);
-                        $this->session->set_flashdata('success','Content has been updated.');
+
+                        $this->session->set_flashdata('success','New Content has been inserted.');
                         redirect('content');
                     }
                     else{
-                        $this->session->set_flashdata('error','Unable to update the content.');
+                        $this->session->set_flashdata('error','Unable to insert the new content.');
                         redirect('content');
                     }
-                }
+                } //insert end
                 else
-                {
-
-                        $category = $this->input->post('category_id');
-
-                    //code to check if category exist or not
-                    if($category == "")
+                {  //update
+                    $insert['updated'] = date('Y-m-d:H:i:s');
+                    if($_FILES['featured_img']['name'] !="")
                     {
-                        $cat['category_name'] = "Uncatgeorized";
-                        $results = $this->content->insert_content_category($cat);
-                        $insert['category_id'] = $results;
+                        $pre_featured_img = $this->input->post('pre_featuredimg');
+                        @unlink($folder_path.$pre_featured_img);
+                        $insert['featured_img']= $featuredimg;
+                        move_uploaded_file($featuredimgtmp,$folder_path.$featuredimg);
+                    }
 
+                    $result = $this->content->content_update($insert, $content_id); //update into content
+
+                    if(in_array($content_type,$tabs_content_type))
+                    {
+                        $tabs['tab1'] = $this->input->post('tab1');
+                        $tabs['tab_description1'] = $this->input->post('tab_description1');
+                        $tabs['tab2'] = $this->input->post('tab2');
+                        $tabs['tab_description2'] = $this->input->post('tab_description2');
+                        $tabs['tab3'] = $this->input->post('tab3');
+                        $tabs['tab_description3'] = $this->input->post('tab_description3');
+                        $tabs['tab4'] = $this->input->post('tab4');
+                        $tabs['tab_description4'] = $this->input->post('tab_description4');
+                        $tabs['tab5'] = $this->input->post('tab5');
+                        $tabs['tab_description5'] = $this->input->post('tab_description5');
+
+                        $tab_data = $this->content->tab_detail($content_id);
+
+                        if(!empty($tab_data))
+                        {
+                            $this->content->tab_update($tabs, $content_id);
+                        }
+                        else
+                        {
+                            $tabs['content_id'] = $content_id;
+                            $this->content->tab_insert($tabs);
+                        }
                     }
-                    else{
-                        $insert['category_id'] = $category;
-                    }
-                    //echo $insert['content_type'];exit;
-                    $result = $this->content->content_update($insert, $content_id);
                     if($result)
                     {
                         //code to create log
@@ -275,8 +202,6 @@ class Content extends MX_Controller{
                         $log['action_id']= "2";
                         $this->create_log($log);
 
-                        //code to add tags
-                        $this->add_tags($content_id, $new_tags);
                         $this->session->set_flashdata('success','Content has been updated.');
                         redirect('content');
                     }
@@ -284,29 +209,22 @@ class Content extends MX_Controller{
                         $this->session->set_flashdata('error','Unable to update the content.');
                         redirect('content');
                     }
+                } //end of updating code
+            }//validation run end
+        }//post end
 
-                }
-
-            }
-        }
-
-        }
-
-
+    // ==============================================================================
         $content = $this->content->get_content_detail($id);
         $tab = $this->content->tab_detail($id);
-        if(!empty($content) && !empty($tab)>0)
+
+        if(!empty($content) && !empty($tab))
         {
              $data['content'] = array_merge($content, $tab);
         } 
-       
-
-        $data['categories'] = $this->content->get_content_categories();
-        $data['parent_pages'] = $this->content->get_parent_page();
-
-
+    // ================================================================================
         $data['scripts'] = array('themes/js/form-validator');
         $data['title']= "Add/Edit Content";
+
         $this->load->view('header', $data);
         $this->load->view('content_form');
         $this->load->view('footer');

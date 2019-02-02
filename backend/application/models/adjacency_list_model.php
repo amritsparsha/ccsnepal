@@ -59,7 +59,12 @@ class Adjacency_list_model extends CI_Model
 			$group = $this->db->where('slug', $group)->get($this->tables['groups'])->row()->id;
 		}
 
-		return $this->db->where('group_id', $group)->where('delete_status','0')->order_by('position', 'asc')->get($this->tables['lists'])->result_array();
+		$this->db->where('group_id', $group)->where('delete_status','0')->where('publish_status','1')->order_by('position', 'asc');
+		$this->db->group_start();
+			$this->db->or_where('show_on_menu','T');
+			$this->db->or_where('show_on_menu','F');
+		$this->db->group_end();
+		return $this->db->get($this->tables['lists'])->result_array();
 	}
 
 	//--------------------------------------------------------------------

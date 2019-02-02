@@ -40,5 +40,4 @@ function date_converter1($date)
     $result = date("F j, Y", strtotime($date));
     return $result;
 }
-
 ?>

@@ -153,30 +153,47 @@ $settings = $this->site_settings_model->get_site_settings();
                             <li class="dropdown">
                                 <a class="dropdown-toggle" href="#">HOME</a>
                             </li>
-                            <li class="dropdown">
-                                <a data-toggle="dropdown" class="dropdown-toggle" href="#">JOBS</a>
-                                <div class="dropdown-menu animated fadeInDown">
-                                    <div class="dropdown-inner">
-                                        <ul class="list-unstyled">
-                                            <li>
-                                                <a href="jobs.html">job grid view</a>
-                                            </li>
-                                            <li>
-                                                <a href="jobs-list-view.html">Job List view</a>
-                                            </li>
-                                            <li>
-                                                <a href="jobs-detail.html">job detail</a>
-                                            </li>
-                                            <li>
-                                                <a href="apply-job-form.html">apply job form</a>
-                                            </li>
-                                            <li>
-                                                <a href="jobs-search.html">Search job</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </li>
+<!-- Dynamic Header Menu -->
+<?php 
+    $parent_header=$this->crud->get_parent_header_menu();
+    if(!empty($parent_header))
+    {
+        $i=1;
+        if($i <= 7)
+        {
+            foreach ($parent_header as $key => $parent) 
+            {
+?>
+                <li class="dropdown">
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <?php echo $parent['content_page_title']; ?>
+                    </a>
+            <?php 
+                $child_header=$this->crud->get_parent_header_sub_menu($parent['content_id']);
+                if(!empty($child_header))
+                {
+            ?>
+                    <div class="dropdown-menu animated fadeInDown">
+                        <div class="dropdown-inner">
+                            <ul class="list-unstyled">
+                      <?php foreach ($child_header as $key => $child): ?>
+                                <li>
+                                    <a href="jobs.html"><?php echo $child['content_page_title']; ?></a>
+                                </li>
+                      <?php endforeach ?>
+                            </ul>
+                        </div>
+                    </div>
+            <?php
+                }
+            ?>  
+                </li>
+<?php
+            }
+        }   
+        $i++;
+    }
+?>
                             <li class="dropdown">
                                 <a data-toggle="dropdown" class="dropdown-toggle" href="#">CANDIDATES</a>
                                 <div class="dropdown-menu animated fadeInDown">
@@ -289,6 +306,7 @@ $settings = $this->site_settings_model->get_site_settings();
                 <!-- button-login end here -->
             </div>
         </div>
+        
     </div>
     <!-- header container end here -->
 </header>

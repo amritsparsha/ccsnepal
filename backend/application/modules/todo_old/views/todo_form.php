@@ -1,13 +1,4 @@
-<link href="templates/assets/node_modules/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css" rel="stylesheet">
-<!-- Page plugins css -->
-<link href="templates/assets/node_modules/clockpicker/dist/jquery-clockpicker.min.css" rel="stylesheet">
-<!-- Color picker plugins css -->
-<link href="templates/assets/node_modules/jquery-asColorPicker-master/css/asColorPicker.css" rel="stylesheet">
-<!-- Date picker plugins css -->
-<link href="templates/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
-<!-- Daterange picker plugins css -->
-<link href="templates/assets/node_modules/timepicker/bootstrap-timepicker.min.css" rel="stylesheet">
-<link href="templates/assets/node_modules/bootstrap-daterangepicker/daterangepicker.css" rel="stylesheet">
+
 <div class="page-wrapper">
     <!-- ============================================================== -->
     <!-- Container fluid  -->
@@ -24,7 +15,7 @@
                 <div class="d-flex justify-content-end align-items-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo site_url(); ?>todo" >Todo</a> </li>
+                        <li class="breadcrumb-item"><a href="<?php echo site_url(); ?>todo" >Deals</a> </li>
                         <li class="breadcrumb-item active"><?php echo (isset($title) && $title !="") ? $title:""; ?></li>
                     </ol>
 
@@ -67,7 +58,6 @@
                         <form method="post" action="" enctype="multipart/form-data" class="form-horizontal">
                             <div class="form-body">
 
-
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-group row">
@@ -93,9 +83,9 @@
                                              <div class="col-sm-4">
                                                <select name="todo_status" class="form-control">
                                                     <option>Todo Status</option>
-                                                    <option value="0" <?php echo (isset($todo['todo_status']) && $todo['todo_status'] =="0")?"selected":"";?>>Pending</option>
-                                                    <option value="1"  <?php echo (isset($todo['todo_status']) && $todo['todo_status'] =="1")?"selected":"";?>>On Progress</option>
-                                                    <option value="2"  <?php echo (isset($todo['todo_status']) && $todo['todo_status'] =="2")?"selected":"";?>>Completed</option>
+                                                    <option value="0" <?php echo (isset($todo['todo_status']) && $todo['todo_status'] =="0")?"selected":"";?>>Not Started On</option>
+                                                    <option value="1"  <?php echo (isset($todo['todo_status']) && $todo['todo_status'] =="1")?"selected":"";?>>Working On</option>
+                                                    <option value="2"  <?php echo (isset($todo['todo_status']) && $todo['todo_status'] =="2")?"selected":"";?>>Completed On</option>
 
                                                 </select>
 
@@ -117,16 +107,11 @@
                                     <div class="col-md-12">
                                         <div class="form-group row">
                                             <div class="col-sm-6">
-
-                                                <input type="text" name="assign_date" class="form-control" data-validation="required" placeholder="Start Date- YY-mm-dd" id="mdate" value="<?php echo (isset($todo['assign_date']) && $todo['assign_date'] !="") ? $todo['assign_date']:""; ?>">
-
-
-
+                                                <input type="date" name="assign_date" placeholder="Assign Date"   data-validation="required" value="<?php echo (isset($todo['assign_date']) && $todo['assign_date'] !="") ? $todo['assign_date']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
                                             </div>
 
                                              <div class="col-sm-6">
-                                                 <input type="text" name="end_date" class="form-control" data-validation="required" placeholder="End Date - YY-mm-dd" id="ydate" value="<?php echo (isset($todo['end_date']) && $todo['end_date'] !="") ? $todo['end_date']:""; ?>">
-
+                                                <input type="date" name="end_date" placeholder="End Date"   data-validation="required" value="<?php echo (isset($todo['end_date']) && $todo['end_date'] !="") ? $todo['end_date']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
                                             </div>
 
                                         </div>
@@ -217,116 +202,12 @@
                                     <div class="col-md-12">
                                         <div class="form-group row">
 
-                                            <div class="col-md-10">
-                                                <input type="text" name="todo_detail" placeholder="To Do One"   data-validation="required" value="<?php echo (isset($todo['todo_detail']) && $todo['todo_detail'] !="") ? $todo['todo_detail']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
-
+                                            <div class="col-md-12">
+                                                <label class="control-label">Details</label>
+                                                <textarea rows="5" cols="10" name="todo_detail" id="todo_detail"><?php echo (isset($todo['todo_detail']) && $todo['todo_detail'] !="") ? $todo['todo_detail']:""; ?></textarea>
                                             </div>
-                                            <div class="col-md-2" style="padding-top:8px;">
-                                                <span style="background-color: #e46a76; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st" value="0" <?php echo (isset($todo['detail_st']) && $todo['detail_st'] =="0")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #03a9f3; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st" value="1" <?php echo (isset($todo['detail_st']) && $todo['detail_st'] =="1")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #00c292; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st" value="2" <?php echo (isset($todo['detail_st']) && $todo['detail_st'] =="2")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-
-                                            </div>
-
-
                                         </div>
                                         <!--/span-->
-                                        <div class="form-group row">
-
-                                            <div class="col-md-10">
-                                                <input type="text" name="todo_detail1" placeholder="To Do Two"   data-validation="required" value="<?php echo (isset($todo['todo_detail1']) && $todo['todo_detail1'] !="") ? $todo['todo_detail1']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
-
-                                            </div>
-                                            <div class="col-md-2" style="padding-top:8px;">
-                                                <span style="background-color: #e46a76; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st1" value="0" <?php echo (isset($todo['detail_st1']) && $todo['detail_st1'] =="0")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #03a9f3; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st1" value="1" <?php echo (isset($todo['detail_st1']) && $todo['detail_st1'] =="1")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #00c292; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st1" value="2" <?php echo (isset($todo['detail_st1']) && $todo['detail_st1'] =="2")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-
-                                            </div>
-
-
-                                        </div>
-                                        <!--/span-->
-                                        <div class="form-group row">
-
-                                            <div class="col-md-10">
-                                                <input type="text" name="todo_detail2" placeholder="To Do Three"   data-validation="required" value="<?php echo (isset($todo['todo_detail2']) && $todo['todo_detail2'] !="") ? $todo['todo_detail2']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
-
-                                            </div>
-                                            <div class="col-md-2" style="padding-top:8px;">
-                                                <span style="background-color: #e46a76; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st2" value="0" <?php echo (isset($todo['detail_st2']) && $todo['detail_st2'] =="0")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #03a9f3; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st2" value="1" <?php echo (isset($todo['detail_st2']) && $todo['detail_st2'] =="1")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #00c292; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st2" value="2" <?php echo (isset($todo['detail_st2']) && $todo['detail_st2'] =="2")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-
-                                            </div>
-
-
-                                        </div>
-                                        <!--/span-->
-                                        <div class="form-group row">
-
-                                            <div class="col-md-10">
-                                                <input type="text" name="todo_detail3" placeholder="To Do Four"   data-validation="required" value="<?php echo (isset($todo['todo_detail3']) && $todo['todo_detail3'] !="") ? $todo['todo_detail3']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
-
-                                            </div>
-                                            <div class="col-md-2" style="padding-top:8px;">
-                                                <span style="background-color: #e46a76; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st3" value="0" <?php echo (isset($todo['detail_st3']) && $todo['detail_st3'] =="0")?"checked":"";?>  class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #03a9f3; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st3" value="1" <?php echo (isset($todo['detail_st3']) && $todo['detail_st3'] =="1")?"checked":"";?>  class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #00c292; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st3" value="2" <?php echo (isset($todo['detail_st3']) && $todo['detail_st3'] =="2")?"checked":"";?>  class="btn btn-danger">
-                                                </span>
-
-                                            </div>
-
-
-                                        </div>
-                                        <!--/span-->
-                                        <div class="form-group row">
-
-                                            <div class="col-md-10">
-                                                <input type="text" name="todo_detail4" placeholder="To Do Five"   data-validation="required" value="<?php echo (isset($todo['todo_detail4']) && $todo['todo_detail4'] !="") ? $todo['todo_detail4']:""; ?>"  autocomplete="off" class="regular-text form-control required valid" kl_virtual_keyboard_secure_input="on">
-
-                                            </div>
-                                            <div class="col-md-2" style="padding-top:8px;">
-                                                <span style="background-color: #e46a76; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st4" value="0" <?php echo (isset($todo['detail_st4']) && $todo['detail_st4'] =="0")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #03a9f3; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st4" value="1" <?php echo (isset($todo['detail_st4']) && $todo['detail_st4'] =="1")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-                                                <span style="background-color: #00c292; padding: 3px 6px 4px 12px;">
-                                                    <input type="radio" name="detail_st4" value="2" <?php echo (isset($todo['detail_st4']) && $todo['detail_st4'] =="2")?"checked":"";?> class="btn btn-danger">
-                                                </span>
-
-                                            </div>
-
-
-                                        </div>
-                                        <!--/span-->
-
-
 
                                     </div>
                                 </div>
@@ -377,14 +258,14 @@
 <script>
     $.validate();
 </script>
-<!--<script>-->
-<!--    CKEDITOR.replace( 'todo_detail',{-->
-<!--    filebrowserUploadUrl: "/rp-admin/themes/plugins/ckeditor/imgupload.php/",-->
-<!--    filebrowserWindowWidth  : 800,-->
-<!--    filebrowserWindowHeight : 500-->
-<!--});-->
-<!---->
-<!--</script>-->
+<script>
+    CKEDITOR.replace( 'todo_detail',{
+    filebrowserUploadUrl: "/rp-admin/themes/plugins/ckeditor/imgupload.php/",
+    filebrowserWindowWidth  : 800,
+    filebrowserWindowHeight : 500
+});
+
+</script>
 <script>
     $('.add-tag').click(function(){
         var value = $(this).attr("id");
@@ -506,110 +387,5 @@
 
     });
 </script>
-<script src="templates/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
-<!-- Bootstrap tether Core JavaScript -->
-<script src="templates/assets/node_modules/popper/popper.min.js"></script>
-<script src="templates/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<!-- slimscrollbar scrollbar JavaScript -->
-<script src="dist/js/perfect-scrollbar.jquery.min.js"></script>
-<!--Wave Effects -->
-<script src="dist/js/waves.js"></script>
-<!--Menu sidebar -->
-<script src="dist/js/sidebarmenu.js"></script>
-<!--stickey kit -->
-<script src="templates/assets/node_modules/sticky-kit-master/dist/sticky-kit.min.js"></script>
-<script src="templates/assets/node_modules/sparkline/jquery.sparkline.min.js"></script>
 
-<!-- Plugins for this page -->
-<!-- ============================================================== -->
-<!-- Plugin JavaScript -->
-<script src="templates/assets/node_modules/moment/moment.js"></script>
-<script src="templates/assets/node_modules/bootstrap-material-datetimepicker/js/bootstrap-material-datetimepicker.js"></script>
-<!-- Clock Plugin JavaScript -->
-<script src="templates/assets/node_modules/clockpicker/dist/jquery-clockpicker.min.js"></script>
-<!-- Color Picker Plugin JavaScript -->
-<script src="templates/assets/node_modules/jquery-asColorPicker-master/libs/jquery-asColor.js"></script>
-<script src="templates/assets/node_modules/jquery-asColorPicker-master/libs/jquery-asGradient.js"></script>
-<script src="templates/assets/node_modules/jquery-asColorPicker-master/dist/jquery-asColorPicker.min.js"></script>
-<!-- Date Picker Plugin JavaScript -->
-<script src="templates/assets/node_modules/bootstrap-datepicker/bootstrap-datepicker.min.js"></script>
-<!-- Date range Plugin JavaScript -->
-<script src="templates/assets/node_modules/timepicker/bootstrap-timepicker.min.js"></script>
-<script src="templates/assets/node_modules/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script>
-    // MAterial Date picker
-    $('#mdate').bootstrapMaterialDatePicker({ weekStart: 0, time: false });
-    $('#ydate').bootstrapMaterialDatePicker({ weekStart: 0, time: false });
-    $('#timepicker').bootstrapMaterialDatePicker({ format: 'HH:mm', time: true, date: false });
-    $('#date-format').bootstrapMaterialDatePicker({ format: 'dddd DD MMMM YYYY - HH:mm' });
-
-    $('#min-date').bootstrapMaterialDatePicker({ format: 'DD/MM/YYYY HH:mm', minDate: new Date() });
-    // Clock pickers
-    $('#single-input').clockpicker({
-        placement: 'bottom',
-        align: 'left',
-        autoclose: true,
-        'default': 'now'
-    });
-    $('.clockpicker').clockpicker({
-        donetext: 'Done',
-    }).find('input').change(function() {
-        console.log(this.value);
-    });
-    $('#check-minutes').click(function(e) {
-        // Have to stop propagation here
-        e.stopPropagation();
-        input.clockpicker('show').clockpicker('toggleView', 'minutes');
-    });
-    if (/mobile/i.test(navigator.userAgent)) {
-        $('input').prop('readOnly', true);
-    }
-    // Colorpicker
-    $(".colorpicker").asColorPicker();
-    $(".complex-colorpicker").asColorPicker({
-        mode: 'complex'
-    });
-    $(".gradient-colorpicker").asColorPicker({
-        mode: 'gradient'
-    });
-    // Date Picker
-    jQuery('.mydatepicker, #datepicker').datepicker();
-    jQuery('#datepicker-autoclose').datepicker({
-        autoclose: true,
-        todayHighlight: true
-    });
-    jQuery('#date-range').datepicker({
-        toggleActive: true
-    });
-    jQuery('#datepicker-inline').datepicker({
-        todayHighlight: true
-    });
-    // Daterange picker
-    $('.input-daterange-datepicker').daterangepicker({
-        buttonClasses: ['btn', 'btn-sm'],
-        applyClass: 'btn-danger',
-        cancelClass: 'btn-inverse'
-    });
-    $('.input-daterange-timepicker').daterangepicker({
-        timePicker: true,
-        format: 'MM/DD/YYYY h:mm A',
-        timePickerIncrement: 30,
-        timePicker12Hour: true,
-        timePickerSeconds: false,
-        buttonClasses: ['btn', 'btn-sm'],
-        applyClass: 'btn-danger',
-        cancelClass: 'btn-inverse'
-    });
-    $('.input-limit-datepicker').daterangepicker({
-        format: 'MM/DD/YYYY',
-        minDate: '06/01/2015',
-        maxDate: '06/30/2015',
-        buttonClasses: ['btn', 'btn-sm'],
-        applyClass: 'btn-danger',
-        cancelClass: 'btn-inverse',
-        dateLimit: {
-            days: 6
-        }
-    });
-</script>
 

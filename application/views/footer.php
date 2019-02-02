@@ -89,67 +89,45 @@ $settings = $this->site_settings_model->get_site_settings();
                 <p>Aliquam hendrit rutrum iaculis nullam ondimentum mal uada velit beum donec sit amet tristique erosam amet risus mollis malesuada quis quis nulla.</p>
 
             </div>
-            <div class="col-sm-3 col-md-3 col-xs-12 info">
-                <h5>Information</h5>
+<!-- Dynamic Footer Menu -->
+<?php 
+    $parent_footer=$this->crud->get_parent_footer_menu();
+    if(!empty($parent_footer))
+    {
+        $i=1;
+        if($i<=3)
+        {
+            foreach ($parent_footer as $key => $parent) 
+            {
+?>
+                <div class="col-sm-3 col-md-3 col-xs-12 info">
+                    <h5><?php echo $parent['content_page_title']; ?></h5>
+            <?php 
+                $child_footer=$this->crud->get_parent_footer_sub_menu($parent['content_id']);
+                if(!empty($child_footer))
+                {
+            ?>
                 <ul class="list-unstyled">
-                    <li>
-                        <a href="about.html"><i class="fa fa-caret-right" aria-hidden="true"></i>About Us</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Help Desk</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Support</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Privacy Policy</a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-caret-right" aria-hidden="true"></i>Terms & Conditions</a>
-                    </li>
+                    <?php foreach ($child_footer as $key => $child): ?> 
+                        <li>
+                            <a href="about.html">
+                                <i class="fa fa-caret-right" aria-hidden="true"></i>
+                                <?php echo $child['content_page_title']; ?>
+                            </a>
+                        </li>
+                    <?php endforeach ?>
                 </ul>
-            </div>
-            <div class="col-sm-3 col-md-3 col-xs-12 use">
-                <h5>Useful Links</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="index-2.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Homepage</a>
-                    </li>
-                    <li>
-                        <a href="submit-job.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Submit Job</a>
-                    </li>
-                    <li>
-                        <a href="jobs.html"><i class="fa fa-caret-right" aria-hidden="true"></i>All Candidates</a>
-                    </li>
-                    <li>
-                        <a href="blog.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Latest Blogs</a>
-                    </li>
-                    <li>
-                        <a href="jobs.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Jobs</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="col-sm-3 col-md-3 col-xs-12 use">
-                <h5>Useful Links</h5>
-                <ul class="list-unstyled">
-                    <li>
-                        <a href="index-2.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Homepage</a>
-                    </li>
-                    <li>
-                        <a href="submit-job.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Submit Job</a>
-                    </li>
-                    <li>
-                        <a href="jobs.html"><i class="fa fa-caret-right" aria-hidden="true"></i>All Candidates</a>
-                    </li>
-                    <li>
-                        <a href="blog.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Latest Blogs</a>
-                    </li>
-                    <li>
-                        <a href="jobs.html"><i class="fa fa-caret-right" aria-hidden="true"></i>Jobs</a>
-                    </li>
-                </ul>
-            </div>
+            <?php
+                }
+            ?>  
+                </div>
+<?php
+            }
+        }   
+        $i++;
+    }
+?>
+<!-- =================================================================================== -->
             <div class="col-sm-12">
                 <ul class="footer-down-menu">
                     <li>

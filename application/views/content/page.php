@@ -3,10 +3,7 @@
 			<div class="container">
 				<h2><span> <?php echo $content['content_page_title'];?> </span></h2>
 				<ul>
-					<li><a href="<?php echo base_url(); ?>">Home</a>
-					</li>
-					<li><i class="fa fa-angle-right" aria-hidden="true"></i> </li>
-					<li><a href="#inner-page-title" class="bread-acti"> <?php echo $content['content_page_title'];?></a> 
+					<li><a href="<?php echo base_url(); ?>">Home</a>&nbsp;&nbsp;&nbsp;<i class="fa fa-angle-right" aria-hidden="true"></i> <?php echo $content['content_page_title'];?>
 					</li>
 				</ul>
 				
@@ -231,15 +228,15 @@ $settings = $this->site_settings_model->get_site_settings();
                         </span>
                         </div>
                     </div>
-                    <?php
-
-                }
-                ?>
                 <p>
                     <?php echo $content['content_body'];?>
                 </p>
 
                 <hr class="light">
+                    <?php
+
+                }
+                ?>
             </div>
             
             
@@ -452,7 +449,6 @@ $settings = $this->site_settings_model->get_site_settings();
 
             }
             ?>
-
         </div>
 		
     

@@ -19,11 +19,36 @@ class Crud_model extends CI_Model
     {
         $query = $this->db->get_where('igc_contact', array("contact_id" => $id));
         $data  = $query->row_array();
-        // if ($data['full_name']) {
-        //     return $data['full_name'];
-        // } else {
-        //     return "NONE";
-        // }
+        if ($data['full_name']) {
+            return $data['full_name'];
+        } else {
+            return "NONE";
+        }
+    }
+
+
+    public function get_where($table,$array)
+    {
+        if(count($array) > 0)
+        {
+            foreach ($array as $key => $value) {
+                $this->db->where("$key","$value"); 
+            }
+        }
+        $result = $this->db->get($table)->result_array();
+        return $result;
+    }
+    public function get_where_order($table,$array,$order_field,$order)
+    {
+        if(count($array) > 0)
+        {
+            foreach ($array as $key => $value) {
+                $this->db->where("$key","$value"); 
+            }
+        }
+        $this->db->order_by("$order_field","$order");
+        $result = $this->db->get($table)->result_array();
+        return $result;
     }
 
 
@@ -51,39 +76,6 @@ class Crud_model extends CI_Model
         }
     }
 
-
-public function get_mail_info()
-   {
-       $this->db->where('delete_status', '0');
-       $this->db->where('active_status', '1');
-       $result = $this->db->get('igc_mail_server_setting')->row_array();
-       return $result;
-   }
-
-public function get_where($table,$array)
-    {
-        if(count($array) > 0)
-        {
-            foreach ($array as $key => $value) {
-                $this->db->where("$key","$value"); 
-            }
-        }
-        $result = $this->db->get($table)->result_array();
-        return $result;
-    }
-    
-    public function get_where_order($table,$array,$order_field,$order)
-    {
-        if(count($array) > 0)
-        {
-            foreach ($array as $key => $value) {
-                $this->db->where("$key","$value"); 
-            }
-        }
-        $this->db->order_by("$order_field","$order");
-        $result = $this->db->get($table)->result_array();
-        return $result;
-    }
 
 
 
@@ -114,11 +106,21 @@ public function get_where($table,$array)
     }
 
 
+
+
+
+
     //function to  get  detail
 
     public function get_detail($id, $field_name, $table)
     {
         $this->db->where($field_name, $id);
+        $result = $this->db->get($table)->row_array();
+        return $result;
+    }
+    public function get_detail_except_id($id,$id_name,$field, $field_name, $table)
+    {
+        $this->db->where($field_name, $field)->where($id_name.'!=',$id);
         $result = $this->db->get($table)->row_array();
         return $result;
     }
@@ -226,6 +228,12 @@ public function get_where($table,$array)
         return $result;
     }
 
+    public function get_detail_task($id, $field_name, $table)
+    {
+        $this->db->where($field_name, $id);
+        $result = $this->db->get($table)->result_array();
+        return $result;
+    }
 
     public function get_detail_records($id, $field_name, $table)
     {
@@ -263,7 +271,15 @@ public function get_where($table,$array)
         $result = $this->db->get($table)->row_array();
         return $result;
     }
-     public function get_currency_symbol($id)
+
+    public function get_mail_info()
+    {
+        $this->db->where('delete_status', '0');
+        $this->db->where('active_status', '1');
+        $result = $this->db->get('igc_mail_server_setting')->row_array();
+        return $result;
+    }
+    public function get_currency_symbol($id)
     {
         return $this->get_detail($id,'currency_id',"igc_currency_setting")['symbol'];
     }
@@ -291,7 +307,6 @@ public function get_where($table,$array)
         }
         return $exp_detail;
     }
-    
     public function get_cur_ref($ref)
     {
         if($ref=="above")

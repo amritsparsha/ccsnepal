@@ -113,7 +113,9 @@
 
                                         <td>
                                             <div class="btn-group">
-                                                <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg<?php echo $row['job_id'];?>"><i class="fa fa-eye" ></i></button>
+                                                <!-- <button type="button" class="btn btn-warning btn-xs" data-toggle="modal" data-target=".bs-example-modal-lg<?php //echo $row['job_id'];?>"><i class="fa fa-eye" ></i></button> -->
+                                                
+                                                <button type="button" class="btn btn-warning btn-xs" onclick="location.href='<?php echo site_url('jobs/job_detail/'.$row['job_id']); ?>'"><i class="fa fa-eye" ></i></button>
                                             </div>
 
                                             <!-- Modal for booking delete -->

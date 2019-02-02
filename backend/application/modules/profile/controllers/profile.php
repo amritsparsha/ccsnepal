@@ -47,7 +47,7 @@ class Profile extends MX_Controller{
 					if ($result) {
 
 						$this->session->set_flashdata('success', "Password has been changed.");
-						redirect($this->redirect);
+						redirect('dashboard');
 
 					} else {
 
@@ -71,8 +71,8 @@ class Profile extends MX_Controller{
 
 	public function password_check($str)
 	{
-		echo $str;
-		exit();
+		// echo $str;
+		// exit();
 		if (preg_match('#[0-9]#', $str) && preg_match('#[a-zA-Z]#', $str)) {
 			return TRUE;
 		}

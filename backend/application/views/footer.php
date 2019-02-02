@@ -14,7 +14,6 @@
 <!-- ============================================================== -->
 <!-- All Jquery -->
 <!-- ============================================================== -->
-<script src="templates/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
 <!-- Bootstrap popper Core JavaScript -->
 <script src="templates/assets/node_modules/popper/popper.min.js"></script>
 <script src="templates/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -48,15 +47,13 @@
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
 <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
 
-
 <script src="templates/assets/node_modules/switchery/dist/switchery.min.js"></script>
 <script src="templates/assets/node_modules/bootstrap-tagsinput/dist/bootstrap-tagsinput.min.js"></script>
 <script src="templates/assets/node_modules/bootstrap-select/bootstrap-select.min.js" type="text/javascript"></script>
 <script src="templates/assets/node_modules/select2/dist/js/select2.full.min.js" type="text/javascript"></script>
 <script type="text/javascript" src="templates/assets/node_modules/multiselect/js/jquery.multi-select.js"></script>
 <script src="templates/assets/node_modules/bootstrap-touchspin/dist/jquery.bootstrap-touchspin.js" type="text/javascript"></script>
-<!--==================================-->
-<script>
+    <script>
     jQuery(document).ready(function() {
         // Switchery
         var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
@@ -163,6 +160,7 @@
         });
     });
 </script>
+
 <script type="text/javascript">
     $('#image_input').hide();
     $('#btn_remove').click(function () {

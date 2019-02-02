@@ -34,7 +34,16 @@
     <script type="text/javascript" src="themes/plugins/ckeditor/ckeditor.js"></script>
     <script src="themes/js/jquery.min.js"></script>
     <script src="themes/js/jquery-ui.min.js"></script>
-    <script src="templates/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>
+    
+    <?php
+//echo site_url().'/'.'primary_menu';
+
+if(current_url() !== site_url('primary_menu')){
+
+    echo ' <script src="templates/assets/node_modules/jquery/jquery-3.2.1.min.js"></script>';
+}
+
+?>
     <?php
     if(isset($styles))
     {
@@ -91,12 +100,12 @@ $detail = $this->db->get('igc_users')->row_array();
 <!-- ============================================================== -->
 <!-- Preloader - style you can find in spinners.css -->
 <!-- ============================================================== -->
-<div class="preloader">
+<!-- <div class="preloader">
     <div class="loader">
         <div class="loader__figure"></div>
         <p class="loader__label">CCS Nepal</p>
     </div>
-</div>
+</div> -->
 <!-- ============================================================== -->
 <!-- Main wrapper - style you can find in pages.scss -->
 <!-- ============================================================== -->
@@ -548,6 +557,8 @@ $detail = $this->db->get('igc_users')->row_array();
 <!-- ============================================================================= -->
 <!-- ============Settings========================================================= -->
                  <li class="nav-small-cap"><span class="side_shift_am">SETTINGS</span></li>
+                    <!-- primary menu -->
+                    <li><a href="<?php echo base_url(); ?>primary_menu"><i class="fa fa-arrows"></i>Primary Menu</a></li>
                     <!-- user management -->
                     <li> <a class="has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="ti-user"></i><span class="hide-menu">User Management </span></a>
                         <ul aria-expanded="false" class="collapse">

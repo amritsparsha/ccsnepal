@@ -48,7 +48,7 @@ class Tasks extends MX_Controller
 
     public function form($id = 0)
     {
-         //print_r($_POST); exit();
+        // print_r($_POST); exit();
         $this->load->helper('html');
         $this->load->helper('form');
         $this->load->library('form_validation');
@@ -65,72 +65,44 @@ class Tasks extends MX_Controller
             $insert['assign_by'] = $this->session->userdata('admin_id');
             // $insert['assign_to'] = $this->input->post('assign_to');
             $insert['tasks_status'] = $this->input->post('tasks_status');
-//            $insert['tasks_detail'] = $this->input->post('tasks_detail');
+            $insert['tasks_detail'] = $this->input->post('tasks_detail');
             // $assign_to = array("1", "2", "3");
             $assign_to = $this->input->post('assign_to');
-            $tasks_detail = $this->input->post('tasks_detail');
-            //$folder_path    = '../uploads/taskss/';
-            //$rand           = md5(rand());
-            //$featuredimg    = $rand . str_replace(" ", "", $_FILES['featured_img']['name']);
-            //$featuredimgtmp = $_FILES['featured_img']['tmp_name'];
+            $folder_path    = '../uploads/taskss/';
+            $rand           = md5(rand());
+            $featuredimg    = $rand . str_replace(" ", "", $_FILES['featured_img']['name']);
+            $featuredimgtmp = $_FILES['featured_img']['tmp_name'];
 
             if ($tasks_id == "") {
                 $insert['created'] = date('Y-m-d:H:i:s');
                 $table             = 'igc_tasks';
-//                if ($_FILES['featured_img']['name'] != "") {
-//                    $insert['featured_img'] = $featuredimg;
-//
-//                    move_uploaded_file($featuredimgtmp, $folder_path . $featuredimg);
-//                }
+                if ($_FILES['featured_img']['name'] != "") {
+                    $insert['featured_img'] = $featuredimg;
+
+                    move_uploaded_file($featuredimgtmp, $folder_path . $featuredimg);
+                }
                 $result    = $this->crud->insert($insert, $table);
                 $insert_id = $this->db->insert_id();
 
                 if ($result) {
 
-
                     if (!empty($assign_to)) {
-
-
-                        foreach ($tasks_detail as $row) {
-                            $inserts['tasks_detail'] = $row;
-                        }
-
-
-
+                        // print_r($assign_to);
+                        // exit();
                         foreach ($assign_to as $row) {
+                            //print_r($row); exit();
                             $inserts['tasks_id'] = $insert_id;
                             $inserts['assign_by']  = $this->session->userdata('admin_id');
+                            // $inserts['currency_id'] = $currency_id[$row];
+                            // print_r($value);
+                            // exit();
                             $inserts['assign_to'] = $row;
-
+                            // $inserts['is_front'] = ($is_front == $row) ? 'Y' : 'N';
                             if ($inserts['assign_to'] != "" || $inserts['assign_to'] != "0") {
                                 $this->mtasks->insert_tasks_assign($inserts);
                             }
-
                         }
                     }
-
-
-
-//                    if (!empty($tasks_detail)) {
-//                        // print_r($tasks_detail);
-//                        // exit();
-//                        foreach ($tasks_detail as $row) {
-//                            //print_r($row); exit();
-//                            $inserts['tasks_id'] = $insert_id;
-//                            $inserts['assign_by']  = $this->session->userdata('admin_id');
-//                            // $inserts['currency_id'] = $currency_id[$row];
-//                            // print_r($value);
-//                            // exit();
-//                            $inserts['tasks_detail'] = $row;
-//                            // $inserts['is_front'] = ($is_front == $row) ? 'Y' : 'N';
-//                            if ($inserts['tasks_detail'] != "" || $inserts['tasks_detail'] != "0") {
-//                                $this->mtasks->insert_tasks_assign_details($inserts);
-//                            }
-//                        }
-//                    }
-
-
-
                     $this->session->set_flashdata('success', 'New tasks has been added.');
                     redirect('tasks');
                 } else {
@@ -141,16 +113,16 @@ class Tasks extends MX_Controller
             } else {
 
                 $insert['updated'] = date('Y-m-d:H:i:s');
-//                if ($_FILES['featured_img']['name'] != "") {
-//                    $pre_featured_img = $this->input->post('pre_featuredimg');
-//
-//                    @unlink($folder_path . $pre_featured_img);
-//
-//                    $insert['featured_img'] = $featuredimg;
-//
-//                    move_uploaded_file($featuredimgtmp, $folder_path . $featuredimg);
-//
-//                }
+                if ($_FILES['featured_img']['name'] != "") {
+                    $pre_featured_img = $this->input->post('pre_featuredimg');
+
+                    @unlink($folder_path . $pre_featured_img);
+
+                    $insert['featured_img'] = $featuredimg;
+
+                    move_uploaded_file($featuredimgtmp, $folder_path . $featuredimg);
+
+                }
                 $table      = 'igc_tasks';
                 $field_name = "tasks_id";
                 $result     = $this->crud->update($tasks_id, $field_name, $insert, $table);

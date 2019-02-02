@@ -270,42 +270,72 @@ public function get_forex($date, $start_point=0, $per_page=0)
    return $result;
 }
 
-//function get parent menu
-
-public function get_parent_footer_menu()
-{
-    $this->db->select('content_id');
-    $this->db->select('content_page_title');
-    $this->db->where('delete_status','0')->where('publish_status','1')->where('group_id','1')->where('parent_id','0')->where('show_on_menu','Y');
-    $this->db->order_by('position','ASC');
-    $result =  $this->db->get('igc_content')->result_array();
-    return $result;
-
-}
-
-    public function get_parent_footer_sub_menu($parent_id)
+// ================================================================================
+// For dynamic header and footer
+// 
+// Parent HEaders
+    public function get_parent_header_menu()
     {
+        $this->db->select('content_title');
         $this->db->select('content_id');
         $this->db->select('content_page_title');
         $this->db->select('content_url');
-        $this->db->where('delete_status','0')->where('publish_status','1')->where('group_id','1')->where('parent_id',$parent_id)->where('show_on_menu','Y');
+        $this->db->where('delete_status','0')->where('publish_status','1')->where('group_id','1')->where('parent_id','0')->where('show_on_menu','T');
+        $this->db->order_by('position','ASC');
+        $result =  $this->db->get(' igc_content')->result_array();
+        return $result;
+
+    }
+// parents-child header
+    public function get_parent_header_sub_menu($parent_id)
+    {
+        $this->db->select('content_id');
+        $this->db->select('content_title');
+        $this->db->select('content_page_title');
+        $this->db->select('content_url');
+        $this->db->where('delete_status','0')->where('publish_status','1')->where('group_id','1')->where('parent_id',$parent_id)->where('show_on_menu','T');
         $this->db->order_by('position','ASC');
         $result =  $this->db->get('igc_content')->result_array();
         return $result;
 
     }
 
+//function get parent footer menu
 
-    public function get_parent_header_menu($code)
+    public function get_parent_footer_menu()
     {
-        $this->db->select('category_name');
-        $this->db->select('category_url');
-        $this->db->where('delete_status','0')->where('publish_status','1')->where('category_code', $code)->where('group_id','1')->where('parent_id','0');
+        $this->db->select('content_id');
+        $this->db->select('content_title');
+        $this->db->select('content_page_title');
+        $this->db->where('delete_status','0')->where('publish_status','1')->where('group_id','1')->where('parent_id','0')->where('show_on_menu','F');
         $this->db->order_by('position','ASC');
-        $result =  $this->db->get(' igc_package_category')->result_array();
+        $result =  $this->db->get('igc_content')->result_array();
+        return $result;
+    }
+//function to get parents child in footer
+    public function get_parent_footer_sub_menu($parent_id)
+    {
+        $this->db->select('content_id');
+        $this->db->select('content_page_title');
+        $this->db->select('content_url');
+        $this->db->where('delete_status','0')->where('publish_status','1')->where('group_id','1')->where('parent_id',$parent_id)->where('show_on_menu','F');
+        $this->db->order_by('position','ASC');
+        $result =  $this->db->get('igc_content')->result_array();
         return $result;
 
     }
+// =================================================================================================
+
+    // public function get_parent_header_menu($code)
+    // {
+    //     $this->db->select('category_name');
+    //     $this->db->select('category_url');
+    //     $this->db->where('delete_status','0')->where('publish_status','1')->where('category_code', $code)->where('group_id','1')->where('parent_id','0');
+    //     $this->db->order_by('position','ASC');
+    //     $result =  $this->db->get(' igc_package_category')->result_array();
+    //     return $result;
+
+    // }
 
     /** IH */
 
@@ -467,7 +497,7 @@ public function get_parent_footer_menu()
     {
         $sql=$this->db->query("
                     SELECT *,COUNT(`job_id`) AS total FROM `tbl_job_post_all`
-                    WHERE delete_status='0' AND publish_status='1' AND super_publish_status='1' AND ".$ref."=".$id."  
+                    WHERE delete_status='0' AND publish_status='1' AND super_publish_status='1' AND $ref = $id  
             ");
         $result=$sql->row_array();
         return $result;

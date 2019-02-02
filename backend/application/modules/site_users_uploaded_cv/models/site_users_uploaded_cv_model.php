@@ -6,6 +6,7 @@ class Site_users_uploaded_cv_model extends CI_Model
 	{
 		$this->db->where('delete_status','0')->where('publish_status','1');
 		$this->db->where('customer_id IS NOT NULL',NULL,false);
+		$this->db->order_by('created',"DESC");
 
 		return $this->db->get('tbl_cust_uploaded_cv')->result_array();
 	}

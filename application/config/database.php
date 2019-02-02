@@ -55,7 +55,7 @@ $db['default']['hostname'] = 'localhost';
 
 $db['default']['username'] = 'root';
 $db['default']['password'] = '';
-$db['default']['database'] = 'ccsfinal';
+$db['default']['database'] = 'ccsnepalcom';
 
 $db['default']['dbdriver'] = 'mysqli';
 $db['default']['dbprefix'] = '';

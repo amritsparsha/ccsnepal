@@ -7,6 +7,7 @@ class Contact extends MX_Controller{
         //check_admin();
 
         $this->load->model('crud_model','crud');
+        $this->load->model('contact_model','contact');
         
 
     }
@@ -18,6 +19,77 @@ class Contact extends MX_Controller{
         $data['title']= "Contact List";
         $this->load->view('header', $data);
         $this->load->view('contact_list');
+        $this->load->view('footer');
+    }
+
+    public function new_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=0;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "New Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
+        $this->load->view('footer');
+    }
+    public function cold_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=1;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "Cold Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
+        $this->load->view('footer');
+    }
+    public function warm_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=2;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "Warm Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
+        $this->load->view('footer');
+    }
+    public function hot_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=3;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "Hot Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
+        $this->load->view('footer');
+    }
+    public function nlwc_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=4;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "NLWC Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
+        $this->load->view('footer');
+    }
+    public function inactive_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=5;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "Inactive Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
+        $this->load->view('footer');
+    }
+    public function active_leads()
+    {
+        $table = 'tbl_company_employers';
+        $lead_value=6;
+        $data['leads'] = $this->contact->get_leads($lead_value,$table);
+        $data['title']= "Active Leads List";
+        $this->load->view('header', $data);
+        $this->load->view('lead_list');
         $this->load->view('footer');
     }
 
